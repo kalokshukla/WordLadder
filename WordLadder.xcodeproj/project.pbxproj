@@ -106,6 +106,9 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "WordLadder" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -153,7 +156,6 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Info.plist;
@@ -177,7 +179,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LIBRARY_SEARCH_PATHS = StanfordCPPLib;
 				OTHER_CFLAGS = "-fstack-check";
-				PREBINDING = NO;
 				SDKROOT = "";
 				USER_HEADER_SEARCH_PATHS = StanfordCPPLib;
 				WARNING_CFLAGS = (
