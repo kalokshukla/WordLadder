@@ -19,8 +19,13 @@ Set<string> nextWordsSpec(Lexicon & english,string word, int pos);
 
 int main() {
 	Lexicon english("EnglishWords.dat");
-    string word="code";
+    string word=getLine("Enter a word: ");
     Set<string> set;
+    if (!english.contains(word)) {
+        //cout<<<<endl;
+        error("Sorry! this term is not defined in our dictionary");
+    }
+    cout<<"Following are all the words that are just one character differnt from "<<"\""<<word<<"\":"<<endl;
     cout<<"[ ";
     int i=0;
     set=nextWords(english,word);
