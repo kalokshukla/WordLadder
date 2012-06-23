@@ -13,48 +13,106 @@
 #include "vector.h"
 using namespace std;
 
-Set<string> nextWords(Lexicon & english,string word);
-Set<string> nextWordsSpec(Lexicon & english,string word, int pos);
+Lexicon english("EnglishWords.dat");
+//string word,end;
+
+Set<string> nextWords(string word);
+Set<string> nextWordsSpec(string word, int pos);
+
+void printVector(Vector<string> v){
+    foreach(string i in v){
+        cout<<i<<" ";
+    }
+    cout<<endl;
+}
+
+void printQueue(Queue< Vector<string> > q){
+    int n=q.size();
+    while (n-->0) {
+        printVector(q.dequeue());
+    }
+    cout<<endl;
+}
+
+void printSet(Set<string> s){
+    foreach(string st in s){
+        cout<<st<<" ";
+    }
+    cout<<endl;
+}
+
+bool isPresent(Queue< Vector<string> > q, string st){
+    int l=q.size();
+    while (l-->0) {
+        Vector<string> v=q.dequeue();
+        foreach(string s in v){
+            if (s==st) {
+                return true;
+            }
+        }
+    }
+    return false;
+}   
 
 
-int main() {
-	Lexicon english("EnglishWords.dat");
-    string word=getLine("Enter a word: ");
+void wordLadder(string word, string end){
     Set<string> set;
     if (!english.contains(word)) {
         //cout<<<<endl;
         error("Sorry! this term is not defined in our dictionary");
     }
-    cout<<"Following are all the words that are just one character differnt from "<<"\""<<word<<"\":"<<endl;
-    cout<<"[ ";
-    int i=0;
-    set=nextWords(english,word);
-    foreach(string s in set){
-        if (i++!=0) {
-            cout<<", "<<s;
-        }
-        else {
-            cout<<s;
+    //set=nextWords(word);
+    Vector<string> start(1,word),ladder,copy,final;
+    Queue< Vector<string> > ladders;
+    ladders.enqueue(start);
+    while (!ladders.isEmpty()) {
+        ladder=ladders.dequeue();
+        if (ladder[ladder.size()-1]==end) {
+            cout<<"\nFound ladder:   ";
+            printVector(ladder);
+            //sleep(5);
+            cout<<endl;
 
+            return;
+        }
+        foreach(string w in nextWords(ladder[ladder.size()-1])){
+            if (!isPresent(ladders, w)) {
+                copy=ladder;
+                copy.add(w);
+                ladders.enqueue(copy);
+                //printQueue(ladders);
+            }
         }
     }
-    cout<<" ]"<<endl;
+    cout<<"No ladder found\n";
+    return;
+}
+
+int main() {
+	while (true) {
+        string word=getLine("Enter starting word (RETURN to quit): ");
+        if (word=="") {
+            break;
+        }
+        string end=getLine("Terminating word: ");
+        wordLadder(word,end);
+    }
 	return 0;
 }
 
- Set<string> nextWords(Lexicon & english,string word){
- Set<string> allNext;
- for (int i=0; i<word.length(); i++) {
-     foreach (string s in nextWordsSpec(english, word, i)){
-         allNext.add(s);
-     }
- 
- }
- return allNext;
- }
- 
+Set<string> nextWords(string word){
+    Set<string> allNext;
+    for (int i=0; i<word.length(); i++) {
+        foreach (string s in nextWordsSpec(word, i)){
+            allNext.add(s);
+        }
+        
+    }
+    return allNext;
+}
 
-Set<string> nextWordsSpec(Lexicon & english,string word, int pos){
+
+Set<string> nextWordsSpec(string word, int pos){
     string temp=word;
     Set<string> next;
     char c=word[pos];
