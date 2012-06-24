@@ -58,10 +58,8 @@ bool isPresent(Queue< Vector<string> > q, string st){
 void wordLadder(string word, string end){
     Set<string> set;
     if (!english.contains(word)) {
-        //cout<<<<endl;
         error("Sorry! this term is not defined in our dictionary");
     }
-    //set=nextWords(word);
     Vector<string> start(1,word),ladder,copy,final;
     Queue< Vector<string> > ladders;
     ladders.enqueue(start);
@@ -70,7 +68,6 @@ void wordLadder(string word, string end){
         if (ladder[ladder.size()-1]==end) {
             cout<<"\nFound ladder:   ";
             printVector(ladder);
-            //sleep(5);
             cout<<endl;
 
             return;
@@ -80,7 +77,6 @@ void wordLadder(string word, string end){
                 copy=ladder;
                 copy.add(w);
                 ladders.enqueue(copy);
-                //printQueue(ladders);
             }
         }
     }
